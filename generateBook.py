@@ -8,6 +8,19 @@ import random
 bookChars  = 'abcdefghijklmnopqrstuvwxyz     ,.'
 titleChars = 'abcdefghijklmnopqrstuvwxyz     '
 
+nPages = 410
+nLinesPerPage = 20
+nCharsPerLine = 80
+
+totalChars = nCharsPerLine * nLinesPerPage * nPages
+# (in theory, you can also have it print out, or include as a footnote,
+#   "this is one of N possible/available books in our library)
+#
+# could we generate the hash and assign it a number, based on 00000...0 being 0 and fffff...f being N?
+# or are hash collisions common in the large number of possible books?
+#
+# how does libraryofbabel.info do a "library catalogue"?
+
 #os.mkdir("/tmp/book/")
 #book = open("/tmp/book/book.tex", 'w')
 book = open("book.tex", 'w')
@@ -21,15 +34,25 @@ def randomChar(charSet, n):
         s = s + thisChar
     return s
 
+bookText = randomChar(bookChars, totalChars)
+
 bookTitle = randomChar(titleChars, random.randrange(48)+2)
 book.write("\\documentclass{article}\n\n")
 book.write("\\title{" + bookTitle + "}\n\n")
+book.write("\\author{ }\n\n")
 book.write("\\begin{document}\n\n")
 book.write("\\maketitle\n\n")
 
+book.write("\\newpage\n\n")
+
+book.write(bookText)
+
+# separate the book onto individual pages... use the following:
 #\input{Chapters/chapter_1}
 #% each chapter may have \begin{singlespace}
 #% which may require Assets/doublespace.sty from thesis
+
+book.write("\\newpage\n\n")
 
 book.write("\\end{document}\n\n")
 
