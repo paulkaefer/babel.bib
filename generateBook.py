@@ -9,7 +9,7 @@ bookChars  = 'abcdefghijklmnopqrstuvwxyz     ,.'
 titleChars = 'abcdefghijklmnopqrstuvwxyz     '
 
 nPages = 410
-nLinesPerPage = 20
+nLinesPerPage = 40
 nCharsPerLine = 80
 
 totalChars = nCharsPerLine * nLinesPerPage * nPages
@@ -52,13 +52,6 @@ for iPage in xrange(nPages):
         ptr = ptr + nCharsPerLine
         book.write("\n\n")
     book.write("\\newpage\n\n")
-
-#book.write(bookText)
-
-# separate the book onto individual pages... use the following:
-#\input{Chapters/chapter_1}
-#% each chapter may have \begin{singlespace}
-#% which may require Assets/doublespace.sty from thesis
 
 book.write("\\newpage\n\n")
 
