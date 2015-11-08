@@ -1,6 +1,6 @@
 <?php
     exec('python generateBook.py', $output);
-    # redirect to book.php
-    # is this a comment? or just
-    // this?
+    exec('pdflatex book.tex');
+    exec('rm -rf /tmp/book/', $output);
+    # redirect to book.pdf
 ?>
