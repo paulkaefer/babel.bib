@@ -45,7 +45,15 @@ book.write("\\maketitle\n\n")
 
 book.write("\\newpage\n\n")
 
-book.write(bookText)
+ptr = 0
+for iPage in xrange(nPages):
+    for iLine in xrange(nLinesPerPage):
+        book.write(bookText[ptr:ptr+nCharsPerLine])
+        ptr = ptr + nCharsPerLine
+        book.write("\n\n")
+    book.write("\\newpage\n\n")
+
+#book.write(bookText)
 
 # separate the book onto individual pages... use the following:
 #\input{Chapters/chapter_1}
