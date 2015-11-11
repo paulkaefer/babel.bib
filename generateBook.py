@@ -21,8 +21,6 @@ totalChars = nCharsPerLine * nLinesPerPage * nPages
 #
 # how does libraryofbabel.info do a "library catalogue"?
 
-#os.mkdir("/tmp/book/")
-#book = open("/tmp/book/book.tex", 'w')
 book = open("book.tex", 'w')
 
 def randomChar(charSet, n):
@@ -58,20 +56,10 @@ book.write("\\newpage\n\n")
 
 ptr = 0
 for iPage in xrange(nPages):
-    # typewriter font:
-    #book.write("\n\\tt{\n")
-    #book.write("\n\\texttt{\n")
-    
-    #lines = ""
     for iLine in xrange(nLinesPerPage):
         book.write("\\noindent " + bookText[ptr:ptr+nCharsPerLine] + "\n\n")
-        #lines = lines + bookText[ptr:ptr+nCharsPerLine]
         ptr = ptr + nCharsPerLine
-        #book.write("\n\n")
-    #book.write("\\noindent " + lines)
     
-    # end typewriter font:
-    #book.write("\n}")
     book.write("\n\n\\newpage\n\n")
 
 # empty page http://www.kronto.org/thesis/tips/empty-pages.html
@@ -82,10 +70,6 @@ book.write("\\newpage\n\n")
 
 book.write("\\end{document}\n\n")
 
-# bookTitle in large font on first page
-
 book.close()
 
-# will be handled by book.php
-#os.rmdir("tmp")
 
