@@ -5,8 +5,8 @@ import random
 # available characters
 # for now, more spaces makes spaces more likely to appear
 # in the future, consider giving spaces more likely random chance (can we do that without increasing complexity?)
-bookChars  = 'abcdefghijklmnopqrstuvwxyz     ,.'
-titleChars = 'abcdefghijklmnopqrstuvwxyz     '
+bookChars  = 'abcdefghijklmnopqrstuvwxyz      ,.'
+titleChars = 'abcdefghijklmnopqrstuvwxyz      '
 
 nPages = 410
 nLinesPerPage = 40
@@ -39,43 +39,44 @@ bookTitle = randomChar(titleChars, random.randrange(48)+2)
 book.write("\\documentclass[12pt]{article}\n\n")
 
 # "quickest" way to change margins, as per http://kb.mit.edu/confluence/pages/viewpage.action?pageId=3907057
-# and "landscape" mode
+# and "landscape" mode: landscape, 
 #   http://texblog.org/2007/11/10/landscape-in-latex/
-book.write("\\usepackage[landscape, margin=0.5in]{geometry}")
+book.write("\\usepackage[margin=1in]{geometry}")
 # for coloring single pages
 # http://tex.stackexchange.com/questions/25137/how-to-change-the-background-color-only-for-the-current-page
 book.write("\\usepackage{afterpage}")
-book.write("\\usepackage{xcolor}")
+book.write("\\usepackage[usenames,dvipsnames,svgnames]{xcolor}")
 
 book.write("\\title{" + bookTitle + "}\n\n")
 book.write("\\author{ }\n\n")
 book.write("\\begin{document}\n\n")
 book.write("\\maketitle\n\n")
 
-book.write("\\pagecolor{green}\\afterpage{\\nopagecolor}")
+book.write("\\pagecolor{ForestGreen}\\afterpage{\\nopagecolor}")
 
 book.write("\\newpage\n\n")
 
 ptr = 0
 for iPage in xrange(nPages):
     # typewriter font:
-    book.write("\n\\tt{\n")
+    #book.write("\n\\tt{\n")
+    #book.write("\n\\texttt{\n")
     
-    lines = ""
+    #lines = ""
     for iLine in xrange(nLinesPerPage):
-        #book.write(bookText[ptr:ptr+nCharsPerLine] + "\n")
-        lines = lines + bookText[ptr:ptr+nCharsPerLine]
+        book.write("\\noindent " + bookText[ptr:ptr+nCharsPerLine] + "\n\n")
+        #lines = lines + bookText[ptr:ptr+nCharsPerLine]
         ptr = ptr + nCharsPerLine
         #book.write("\n\n")
-    book.write(lines)
-        
+    #book.write("\\noindent " + lines)
+    
     # end typewriter font:
-    book.write("\n}")
+    #book.write("\n}")
     book.write("\n\n\\newpage\n\n")
 
 # empty page http://www.kronto.org/thesis/tips/empty-pages.html
 book.write("\\mbox{}")
-book.write("\\pagecolor{green}\\afterpage{\\nopagecolor}")
+book.write("\\pagecolor{ForestGreen}\\afterpage{\\nopagecolor}")
 
 book.write("\\newpage\n\n")
 
