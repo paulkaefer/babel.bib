@@ -39,12 +39,20 @@ bookTitle = randomChar(titleChars, random.randrange(48)+2)
 book.write("\\documentclass[12pt]{article}\n\n")
 
 # "quickest" way to change margins, as per http://kb.mit.edu/confluence/pages/viewpage.action?pageId=3907057
-book.write("\\usepackage[margin=0.5in]{geometry}")
+# and "landscape" mode
+#   http://texblog.org/2007/11/10/landscape-in-latex/
+book.write("\\usepackage[landscape, margin=0.5in]{geometry}")
+# for coloring single pages
+# http://tex.stackexchange.com/questions/25137/how-to-change-the-background-color-only-for-the-current-page
+book.write("\\usepackage{afterpage}")
+book.write("\\usepackage{xcolor}")
 
 book.write("\\title{" + bookTitle + "}\n\n")
 book.write("\\author{ }\n\n")
 book.write("\\begin{document}\n\n")
 book.write("\\maketitle\n\n")
+
+book.write("\\pagecolor{green}\\afterpage{\\nopagecolor}")
 
 book.write("\\newpage\n\n")
 
@@ -53,14 +61,21 @@ for iPage in xrange(nPages):
     # typewriter font:
     book.write("\n\\tt{\n")
     
+    lines = ""
     for iLine in xrange(nLinesPerPage):
-        book.write(bookText[ptr:ptr+nCharsPerLine] + "\n")
+        #book.write(bookText[ptr:ptr+nCharsPerLine] + "\n")
+        lines = lines + bookText[ptr:ptr+nCharsPerLine]
         ptr = ptr + nCharsPerLine
         #book.write("\n\n")
+    book.write(lines)
         
     # end typewriter font:
     book.write("\n}")
     book.write("\n\n\\newpage\n\n")
+
+# empty page http://www.kronto.org/thesis/tips/empty-pages.html
+book.write("\\mbox{}")
+book.write("\\pagecolor{green}\\afterpage{\\nopagecolor}")
 
 book.write("\\newpage\n\n")
 

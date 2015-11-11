@@ -4,3 +4,4 @@ erase book.log
 erase book.pdf
 erase book.synctex.gz
 erase book.tex
+erase book.pdf
