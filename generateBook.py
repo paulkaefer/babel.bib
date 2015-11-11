@@ -1,5 +1,5 @@
 
-import os # os.name is 'posix', 'nt', 'os2', 'ce' or 'riscos'
+import os # os.name is 'posix', 'nt', 'os2', 'ce' or 'riscos' --> if Windows, system commands are different
 import random
 
 # available characters
@@ -14,7 +14,7 @@ nCharsPerLine = 80
 
 totalChars = nCharsPerLine * nLinesPerPage * nPages
 # (in theory, you can also have it print out, or include as a footnote,
-#   "this is one of N possible/available books in our library)
+#   "this is one of N possible/available books in our library")
 #
 # could we generate the hash and assign it a number, based on 00000...0 being 0 and fffff...f being N?
 # or are hash collisions common in the large number of possible books?
@@ -37,7 +37,7 @@ def randomChar(charSet, n):
 bookText = randomChar(bookChars, totalChars)
 
 bookTitle = randomChar(titleChars, random.randrange(48)+2)
-book.write("\\documentclass{article}\n\n")
+book.write("\\documentclass[12pt]{article}\n\n")
 book.write("\\title{" + bookTitle + "}\n\n")
 book.write("\\author{ }\n\n")
 book.write("\\begin{document}\n\n")
@@ -50,8 +50,8 @@ for iPage in xrange(nPages):
     for iLine in xrange(nLinesPerPage):
         book.write(bookText[ptr:ptr+nCharsPerLine])
         ptr = ptr + nCharsPerLine
-        book.write("\n\n")
-    book.write("\\newpage\n\n")
+        #book.write("\n\n")
+    book.write("\n\n\\newpage\n\n")
 
 book.write("\\newpage\n\n")
 
