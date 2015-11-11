@@ -24,7 +24,6 @@ totalChars = nCharsPerLine * nLinesPerPage * nPages
 #os.mkdir("/tmp/book/")
 #book = open("/tmp/book/book.tex", 'w')
 book = open("book.tex", 'w')
-os.mkdir("tmp")
 
 def randomChar(charSet, n):
     l = len(charSet)
@@ -38,6 +37,10 @@ bookText = randomChar(bookChars, totalChars)
 
 bookTitle = randomChar(titleChars, random.randrange(48)+2)
 book.write("\\documentclass[12pt]{article}\n\n")
+
+# "quickest" way to change margins, as per http://kb.mit.edu/confluence/pages/viewpage.action?pageId=3907057
+book.write("\\usepackage[margin=0.5in]{geometry}")
+
 book.write("\\title{" + bookTitle + "}\n\n")
 book.write("\\author{ }\n\n")
 book.write("\\begin{document}\n\n")
@@ -47,10 +50,16 @@ book.write("\\newpage\n\n")
 
 ptr = 0
 for iPage in xrange(nPages):
+    # typewriter font:
+    book.write("\n\\tt{\n")
+    
     for iLine in xrange(nLinesPerPage):
-        book.write(bookText[ptr:ptr+nCharsPerLine])
+        book.write(bookText[ptr:ptr+nCharsPerLine] + "\n")
         ptr = ptr + nCharsPerLine
         #book.write("\n\n")
+        
+    # end typewriter font:
+    book.write("\n}")
     book.write("\n\n\\newpage\n\n")
 
 book.write("\\newpage\n\n")
